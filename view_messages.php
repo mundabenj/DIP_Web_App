@@ -36,6 +36,7 @@ $messages = $stmt->fetchAll(PDO::FETCH_ASSOC);
       <th scope="col">subject</th>
       <th scope="col">Message</th>
       <th scope="col">Date Sent</th>
+      <th scope="col">Actions</th>
     </tr>
   </thead>
   <tbody>
@@ -52,9 +53,13 @@ $messages = $stmt->fetchAll(PDO::FETCH_ASSOC);
       <td><?php print $message["receiver_email"]; ?></td>
       <td><?php print $message["subject"]; ?></td>
       <td><?php 
-       $shown_string = implode(' ', array_slice(str_word_count(addslashes($message["message"]), 2), 0, 10)) . ' ... ' ; //converting the full text into an array storing all words, then slicing the array at the maximum number of words determined by $max_words      
+       $shown_string = implode(' ', array_slice(str_word_count(addslashes($message["message"]), 2), 0, 5)) . ' ... ' ; //converting the full text into an array storing all words, then slicing the array at the maximum number of words determined by $max_words      
        print $shown_string ; ?></td>
       <td><?php print date("Y-M-d", strtotime($message["date_sent"])); ?></td>
+      <td>
+        [ <a href="edit.php?EditId=<?php print $message["messageId"];?>">Edit</a> ]
+        [ <a href="processes/messages_proc.php?DelId=<?php print $message["messageId"];?>" OnClick="return confirm('Are you sure you wan to delete this message from the database?');">Del</a> ]
+        </td>
     </tr>
 
     <?php }} ?>
