@@ -1,3 +1,6 @@
+<?php
+require_once "includes/DB_Connect.php";
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,7 +21,7 @@
     <div class="content">
 <h3>Register Here</h3>
 
-<form action="" method="POST">
+<form action="processes/user_proc.php" method="POST">
     <label for="fullname">Full Name:</label><br>
     <input type="text" name="fullname" id="fullname" placeholder="Enter your name" maxlength="60" required /><br><br>
     <label for="email_address">Email Address:</label><br>
@@ -27,18 +30,23 @@
     <input type="text" name="phone_number" id="phone_number" placeholder="Enter your phone number" maxlength="13" /><br><br>
     <label for="username">Userame:</label><br>
     <input type="text" name="username" id="username" placeholder="Enter your username" maxlength="60" /><br><br>
-    <label for="dob">Date of Birth:</label><br>
-    <input type="date" name="dob" id="dob" /><br><br>
     <label for="password">Password:</label><br>
     <input type="password" name="password" id="password" placeholder="Enter your password" /><br><br>
-    <label for="Conf_password">Password:</label><br>
+    <label for="Conf_password">Confirm Password:</label><br>
     <input type="password" name="Conf_password" id="Conf_password" placeholder="Re-Enter your password" /><br><br>
     <label for="userrole">User Role:</label><br>
-    <select name="userrole">
+
+<?php
+$stmt = $pdo->query("SELECT * FROM roles");
+$roles = $stmt->fetchAll(PDO::FETCH_ASSOC);
+?>
+    <select name="roleId">
         <option value="">--Select Role--</option>
-        <option value="1">Admin</option>
-        <option value="2">Author</option>
-        <option value="3">Editor</option>
+<?php
+  foreach($roles  AS $role){
+    print "<option value='". $role["roleId"]."'>".$role["role"]."</option>";
+  }
+?>
     </select>
     <br><br>
 

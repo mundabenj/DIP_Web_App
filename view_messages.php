@@ -1,5 +1,6 @@
 <?php
 require_once "includes/DB_Connect.php";
+require_once "includes/verify_login.php";
 ?>
 
 <!DOCTYPE html>
